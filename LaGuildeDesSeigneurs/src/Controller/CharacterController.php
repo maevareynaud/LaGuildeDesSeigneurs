@@ -49,7 +49,7 @@ class CharacterController extends AbstractController
     /**
      * @Route("/character/display/{identifier}", 
      *      name="character_display",
-     *      requirements={"identifier": "^[a-z0-9]{40}$"},
+     *      requirements={"identifier": "^([a-z0-9]{40})$"},
      *      methods={"GET","HEAD"}
      * )
      */
@@ -75,7 +75,34 @@ class CharacterController extends AbstractController
         return new JsonResponse($character->toArray());
     }
 
-    
+    /**
+     * @Route("/character/modify/{identifier}", 
+     *      name="character_modify",
+     *      requirements={"identifier": "^([a-z0-9]{40})$"},
+     *      methods={"PUT", "HEAD"})
+     */
 
-    
+    public function modify(Character $character) {
+
+        $this->denyAccessUnlessGranted('characterModify', null);
+
+        $character = $this->characterService->modify($character);
+        return new JsonResponse($character->toArray());
+    }
+
+    /**
+     * @Route("/character/delete/{identifier}", 
+     *      name="character_delete",
+     *      requirements={"identifier": "^([a-z0-9]{40})$"},
+     *      methods={"DELETE", "HEAD"})
+     */
+
+    public function delete(Character $character) {
+
+        $this->denyAccessUnlessGranted('characterDelete', null);
+
+        $response = $this->characterService->delete($character);
+        return new JsonResponse(array('delete' => $response));
+    }
+
 }

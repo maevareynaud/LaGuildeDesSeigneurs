@@ -54,5 +54,35 @@ class CharacterService implements CharacterServiceInterface
         return $charactersFinal;
     }
 
+    public function modify(Character $character)
+    {
+        $character
+            ->setKind('Seigneur')
+            ->setName('Nolofinmve')
+            ->setSurname('Sagesse')
+            ->setCaste('Chevalier')
+            ->setKnowledge('Diplomatie')
+            ->setIntelligence(110)
+            ->setLife(13)
+            ->setCreation(new \DateTime())
+        ;
+
+        //tell Doctrine you want to save the Character (no queries yet)
+        $this->em->persist($character);
+
+        //actually executes the queries (i.e. the INSERT query)
+        $this->em->flush();
+
+        return $character;
+    }
+
+    public function delete(Character $character)
+    {
+        $this->em->remove($character);
+        $this->em->flush();
+
+        return true;
+    }
+
     
 }
