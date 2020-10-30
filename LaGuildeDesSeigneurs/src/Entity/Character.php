@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=CharacterRepository::class)
- * @ORM\Table(name="`character`")
+ * @ORM\Table(name="characters")
  */
 class Character
 {
@@ -21,32 +21,32 @@ class Character
     /**
      * @ORM\Column(type="string", length=16)
      */
-    private $name='Athelleen';
+    private $name;
 
     /**
      * @ORM\Column(type="string", length=64)
      */
-    private $surname='Guerrière des flammes';
+    private $surname;
 
     /**
      * @ORM\Column(type="string", length=16, nullable=true)
      */
-    private $caste='Guerrier';
+    private $caste;
 
     /**
      * @ORM\Column(type="string", length=16, nullable=true)
      */
-    private $knowledge='Cartographie';
+    private $knowledge;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $intelligence=90;
+    private $intelligence;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $life=15;
+    private $life;
 
     /**
      * @ORM\Column(type="string", length=128, nullable=true)
