@@ -3,6 +3,7 @@
 namespace App\Service;
 
 interface CharacterServiceInterface {
+    
     /** 
      * Create the character
      */

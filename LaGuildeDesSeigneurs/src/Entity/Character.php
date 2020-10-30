@@ -63,6 +63,11 @@ class Character
      */
     private $creation;
 
+    /**
+     * @ORM\Column(type="string", length=40)
+     */
+    private $identifier;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -183,4 +188,18 @@ class Character
 
         return $this;
     }
+
+    public function getIdentifier(): ?string
+    {
+        return $this->identifier;
+    }
+
+    public function setIdentifier(string $identifier): self
+    {
+        $this->identifier = $identifier;
+
+        return $this;
+    }
+
+    
 }
