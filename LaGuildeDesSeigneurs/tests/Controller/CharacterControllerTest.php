@@ -6,6 +6,20 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class CharacterControllerTest extends WebTestCase
 {
+
+    /*
+    * Tests redirect index
+    */
+
+    public function getRedirectIndex()
+    {
+        $client = static::createClient();
+        $client->request('GET', '/character');
+
+        $this->assertEquals(302, $client->getResponse()->getStatusCode());
+    }
+
+    
     /*
     * Tests index
     */
@@ -46,4 +60,8 @@ class CharacterControllerTest extends WebTestCase
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertTrue($response->headers->contains('Content-Type', 'application/json'), $response->headers);
     }
+
+    
+
+   
 }
