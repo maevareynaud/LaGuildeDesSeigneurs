@@ -19,7 +19,6 @@ class CharacterControllerTest extends WebTestCase
         $this->assertEquals(302, $client->getResponse()->getStatusCode());
     }
 
-    
     /*
     * Tests index
     */
@@ -27,7 +26,7 @@ class CharacterControllerTest extends WebTestCase
     public function testIndex() 
     {
         $client = static::createClient();
-        $client->request('GET', '/character');
+        $client->request('GET', '/character/index');
         
         $this->assertJsonResponse($client->getResponse());
     }

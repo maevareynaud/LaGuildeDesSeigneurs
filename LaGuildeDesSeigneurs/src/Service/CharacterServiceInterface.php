@@ -9,6 +9,11 @@ interface CharacterServiceInterface {
      */
 
     public function create();
+
+    /** 
+     * Create all the characters
+     */
+    public function getAll();
 }
 
 

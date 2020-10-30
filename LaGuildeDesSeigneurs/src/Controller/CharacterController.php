@@ -21,14 +21,29 @@ class CharacterController extends AbstractController
 
 
     /**
-     * @Route("/character", name="character", methods={"GET","HEAD"})
+     * @Route("/character", 
+     *      name="character_redirect_index", 
+     *      methods={"GET","HEAD"})
      */
-    public function index(): Response
+
+    public function redirectIndex(){
+        return $this->redirectToRoute('character_index');
+    }
+
+    /**
+     * @Route("/character/index", 
+     *      name="character_index", 
+     *      methods={"GET","HEAD"})
+     */
+
+
+    public function index()
     {
-        return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/CharacterController.php',
-        ]);
+        $this->denyAccessUnlessGranted('characterIndex', null);
+
+        $characters = $this->characterService->getAll();
+
+        return new JsonResponse($characters);
     }
 
     /**
@@ -59,6 +74,8 @@ class CharacterController extends AbstractController
         $character = $this->characterService->create();
         return new JsonResponse($character->toArray());
     }
+
+    
 
     
 }
