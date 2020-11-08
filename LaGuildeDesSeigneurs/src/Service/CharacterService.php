@@ -32,6 +32,7 @@ class CharacterService implements CharacterServiceInterface
             ->setLife(15)
             ->setCreation(new \DateTime())
             ->setIdentifier(hash('sha1', uniqid()))
+            ->setModification(new \DateTime())
         ;
 
         //tell Doctrine you want to save the Character (no queries yet)
@@ -64,7 +65,7 @@ class CharacterService implements CharacterServiceInterface
             ->setKnowledge('Diplomatie')
             ->setIntelligence(110)
             ->setLife(13)
-            ->setCreation(new \DateTime())
+            ->setModification(new \DateTime())
         ;
 
         //tell Doctrine you want to save the Character (no queries yet)
