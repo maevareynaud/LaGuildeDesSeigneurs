@@ -53,6 +53,11 @@ class Player
      */
     private $identifier;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $character_played;
+
    
 
     public function getId(): ?int
@@ -148,6 +153,18 @@ class Player
     public function setIdentifier(string $identifier): self
     {
         $this->identifier = $identifier;
+
+        return $this;
+    }
+
+    public function getCharacterPlayed()
+    {
+        return $this->character_played;
+    }
+
+    public function setCharacterPlayed($character_played): self
+    {
+        $this->character_played = $character_played;
 
         return $this;
     }

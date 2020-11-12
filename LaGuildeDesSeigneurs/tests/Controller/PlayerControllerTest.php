@@ -52,7 +52,7 @@ class PlayerControllerTest extends WebTestCase
     public function testCreate(){
         $this->client->request('POST', '/player/create');
         $this->assertJsonResponse($this->client->getResponse());
-        
+                
         $this->assertIdentifier();
         $this->defineIdentifier();
     }

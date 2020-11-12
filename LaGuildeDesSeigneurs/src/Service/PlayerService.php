@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\Character;
 use DateTime;
 use App\Entity\Player;
 use Doctrine\ORM\EntityManagerInterface;
@@ -31,6 +32,7 @@ class PlayerService implements PlayerServiceInterface
             ->setCreation(new \DateTime())
             ->setModification(new \DateTime())
             ->setIdentifier(hash('sha1', uniqid()))
+            ->setCharacterPlayed(5);
         ;
 
         //tell Doctrine you want to save the Player (no queries yet)
