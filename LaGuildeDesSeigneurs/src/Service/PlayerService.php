@@ -9,9 +9,10 @@ use App\Entity\Player;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\PlayerRepository;
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\VarDumper\Cloner\Data;
 use LogicException;
-use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 
 
 
@@ -21,13 +22,17 @@ class PlayerService implements PlayerServiceInterface
     private $em;
     private $playerRepository;
     private $formFactory;
+    private $validator;
 
 
-    public function __construct(PlayerRepository $playerRepository, EntityManagerInterface $em, FormFactoryInterface $formFactory)
+
+    public function __construct(PlayerRepository $playerRepository, EntityManagerInterface $em, FormFactoryInterface $formFactory, ValidatorInterface $validator)
     {
         $this->playerRepository = $playerRepository;
         $this->em = $em;
         $this->formFactory = $formFactory;
+        $this->validator = $validator;
+
     }
 
     public function create(String $data) 
@@ -55,13 +60,9 @@ class PlayerService implements PlayerServiceInterface
      */
     public function isEntityFilled(Player $player)
     {
-        if (null === $player->getFirstname() ||
-            null === $player->getLastname() ||
-            null === $player->getIdentifier() ||
-            null === $player->getCreation() ||
-            null === $player->getModification() ||
-            null === $player->getEmail()) {
-            throw new UnprocessableEntityHttpException('Missing data for Entity -> ' . json_encode($player->toArray()));
+        $errors = $this->validator->validate($player);
+        if(count($errors) > 0){
+            throw new UnprocessableEntityHttpException((string) $errors . 'Missing data for Entity -> ' . json_encode($player->toArray()));
         }
     }
    

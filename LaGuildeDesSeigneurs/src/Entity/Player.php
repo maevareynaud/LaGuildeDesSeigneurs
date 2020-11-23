@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\PlayerRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Entity(repositoryClass=PlayerRepository::class)
@@ -20,21 +22,37 @@ class Player
 
     /**
      * @ORM\Column(type="string", length=16)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 16,
+     * )
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=64)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 64,
+     * )
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="text", length=255, nullable=true)
+     * @Assert\NotBlank
+     * @Assert\Email
      */
     private $email;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Type(
+     *     type="integer",
+     *     message="The value {{ value }} is not a valid {{ type }}."
+     * )
      */
     private $mirian;
 
@@ -50,11 +68,19 @@ class Player
 
     /**
      * @ORM\Column(type="string", length=40)
+     * @Assert\Length(
+     *      min = 40,
+     *      max = 40,
+     * )
      */
     private $identifier;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\Type(
+     *     type="integer",
+     *     message="The value {{ value }} is not a valid {{ type }}."
+     * )
      */
     private $character_played;
 

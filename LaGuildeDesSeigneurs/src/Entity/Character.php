@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\CharacterRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CharacterRepository::class)
@@ -20,41 +21,79 @@ class Character
 
     /**
      * @ORM\Column(type="string", length=16)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 16,
+     * )
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=64)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 64,
+     * )
      */
     private $surname;
 
     /**
      * @ORM\Column(type="string", length=16, nullable=true)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 16,
+     * )
      */
     private $caste;
 
     /**
      * @ORM\Column(type="string", length=16, nullable=true)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 16,
+     * )
      */
     private $knowledge;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\Type(
+     *     type="integer",
+     *     message="The value {{ value }} is not a valid {{ type }}."
+     * )
      */
     private $intelligence;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\Type(
+     *     type="integer",
+     *     message="The value {{ value }} is not a valid {{ type }}."
+     * )
      */
     private $life;
 
     /**
      * @ORM\Column(type="string", length=128, nullable=true)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 10,
+     *      max = 128,
+     * )
      */
     private $image;
 
     /**
      * @ORM\Column(type="string", length=16)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 16,
+     * )
      */
     private $kind;
 
@@ -65,6 +104,11 @@ class Character
 
     /**
      * @ORM\Column(type="string", length=40)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 40,
+     * )
      */
     private $identifier;
 
@@ -217,6 +261,7 @@ class Character
 
         return $this;
     }
+
 
     
 }
