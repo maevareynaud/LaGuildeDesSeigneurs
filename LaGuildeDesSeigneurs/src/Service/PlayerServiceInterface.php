@@ -9,7 +9,7 @@ interface PlayerServiceInterface {
      * Create the player
      */
 
-    public function create();
+    public function create(String $data);
 
     /** 
      * Display all the players
@@ -20,7 +20,19 @@ interface PlayerServiceInterface {
      * Modify a player
      */
 
-    public function modify(Player $player);
+    public function modify(Player $player, String $data);
+
+    /** 
+     * Checks if the netity has been well filled
+     */
+
+    public function isEntityFilled(Player $player);
+
+     /** 
+     * Submits the date to hydrate the object
+     */
+
+    public function submit(Player $player, $formName, $data);
 
      /**
      * Delete a player

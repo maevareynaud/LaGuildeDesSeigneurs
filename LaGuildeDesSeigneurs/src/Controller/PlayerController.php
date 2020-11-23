@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Player;
 use App\Service\PlayerServiceInterface;
@@ -67,11 +68,11 @@ class PlayerController extends AbstractController
      *      methods={"POST", "HEAD"})
      */
 
-    public function create() {
+    public function create(Request $request) {
 
         $this->denyAccessUnlessGranted('playerCreate', null);
 
-        $player = $this->playerService->create();
+        $player = $this->playerService->create($request->getContent());
         return new JsonResponse($player->toArray());
     }
 
@@ -82,11 +83,11 @@ class PlayerController extends AbstractController
      *      methods={"PUT", "HEAD"})
      */
 
-    public function modify(Player $player) {
+    public function modify(Request $request, Player $player) {
 
         $this->denyAccessUnlessGranted('playerModify', null);
 
-        $player = $this->playerService->modify($player);
+        $player = $this->playerService->modify($player, $request->getContent());
         return new JsonResponse($player->toArray());
     }
 
