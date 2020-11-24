@@ -10,7 +10,10 @@ use App\Repository\CharacterRepository;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use App\Event\CharacterEvent;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use LogicException;
+use Psr\EventDispatcher\EventDispatcherInterface;
 
 class CharacterService implements CharacterServiceInterface
 {
@@ -18,14 +21,16 @@ class CharacterService implements CharacterServiceInterface
     private $characterRepository;
     private $formFactory;
     private $validator;
+    private $dispatcher;
 
 
-    public function __construct(CharacterRepository $characterRepository, EntityManagerInterface $em, FormFactoryInterface $formFactory, ValidatorInterface $validator)
+    public function __construct(CharacterRepository $characterRepository, EntityManagerInterface $em, FormFactoryInterface $formFactory, ValidatorInterface $validator, EventDispatcherInterface $dispatcher)
     {
         $this->characterRepository = $characterRepository;
         $this->em = $em;
         $this->formFactory = $formFactory;
         $this->validator = $validator;
+        $this->dispatcher = $dispatcher;
     }
 
     public function create(String $data)
@@ -38,6 +43,12 @@ class CharacterService implements CharacterServiceInterface
             ->setModification(new DateTime())
         ;
         $this->submit($character, CharacterType::class, $data);
+
+        //Dispatch event
+        $event = new CharacterEvent($character);
+        $this->dispatcher->dispatch($event, CharacterEvent::CHARACTER_CREATED);
+
+
         $this->isEntityFilled($character);
 
         $this->em->persist($character);

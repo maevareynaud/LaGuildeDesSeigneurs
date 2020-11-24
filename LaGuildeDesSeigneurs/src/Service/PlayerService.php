@@ -13,6 +13,9 @@ use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\VarDumper\Cloner\Data;
 use LogicException;
+use App\Event\PlayerEvent;
+use Psr\EventDispatcher\EventDispatcherInterface;
+
 
 class PlayerService implements PlayerServiceInterface
 {
@@ -20,15 +23,18 @@ class PlayerService implements PlayerServiceInterface
     private $playerRepository;
     private $formFactory;
     private $validator;
+    private $dispatcher;
 
 
 
-    public function __construct(PlayerRepository $playerRepository, EntityManagerInterface $em, FormFactoryInterface $formFactory, ValidatorInterface $validator)
+
+    public function __construct(PlayerRepository $playerRepository, EntityManagerInterface $em, FormFactoryInterface $formFactory, ValidatorInterface $validator, EventDispatcherInterface $dispatcher)
     {
         $this->playerRepository = $playerRepository;
         $this->em = $em;
         $this->formFactory = $formFactory;
         $this->validator = $validator;
+        $this->dispatcher = $dispatcher;
     }
 
     public function create(String $data)
@@ -105,6 +111,10 @@ class PlayerService implements PlayerServiceInterface
 
             ->setModification(new \DateTime())
         ;
+
+
+        $event = new PlayerEvent($player);
+        $this->dispatcher->dispatch($event, PlayerEvent::PLAYER_MODIFIED);
 
         //tell Doctrine you want to save the Character (no queries yet)
         $this->em->persist($player);
