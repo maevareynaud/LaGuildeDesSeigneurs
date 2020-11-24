@@ -117,6 +117,13 @@ class Character
      */
     private $modification;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Player::class, inversedBy="characters")
+     */
+    private $player;
+
+    
+
     public function getId(): ?int
     {
         return $this->id;
@@ -210,8 +217,20 @@ class Character
      *   Converts the entity in an array
      */
 
-    public function toArray(){
-        return get_object_vars($this);
+    public function toArray(bool $expand = true){
+        $character =  get_object_vars($this);
+        if($expand && null !== $this->getPlayer()){
+            $character['player'] = $this->getPlayer()->toArray(false);
+        }
+
+        //Specific data
+        if(null !== $character['creation']){
+            $character['creation'] = $character['creation']->format('Y-m-d H:i:s');
+        }
+        if(null !== $character['modification']){
+            $character['modification'] = $character['modification']->format('Y-m-d H:i:s');
+        }
+        return $character;
     }
 
     public function getKind(): ?string
@@ -262,6 +281,17 @@ class Character
         return $this;
     }
 
+    public function getPlayer(): ?Player
+    {
+        return $this->player;
+    }
+
+    public function setPlayer(?Player $player): self
+    {
+        $this->player = $player;
+
+        return $this;
+    }
 
     
 }

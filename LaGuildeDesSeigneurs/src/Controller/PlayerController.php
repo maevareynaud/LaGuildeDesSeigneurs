@@ -9,6 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Player;
 use App\Service\PlayerServiceInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 
 
 class PlayerController extends AbstractController
@@ -53,6 +54,7 @@ class PlayerController extends AbstractController
      *      requirements={"identifier": "^([a-z0-9]{40})$"},
      *      methods={"GET","HEAD"}
      * )
+     * @Entity("player", expr="repository.findOneByIdentifier(identifier)")
      */
 
     public function display(Player $player) {

@@ -9,6 +9,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Character;
 use App\Service\CharacterServiceInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
+
 
 
 class CharacterController extends AbstractController
@@ -53,6 +55,7 @@ class CharacterController extends AbstractController
      *      requirements={"identifier": "^([a-z0-9]{40})$"},
      *      methods={"GET","HEAD"}
      * )
+     * @Entity("character", expr="repository.findOneByIdentifier(identifier)")
      */
 
     public function display(Character $character) {
