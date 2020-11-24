@@ -210,12 +210,12 @@ class Player
         return $this;
     }
 
-    public function getCharacterPlayed()
+    public function getCharacterPlayed(): ?int
     {
         return $this->character_played;
     }
 
-    public function setCharacterPlayed($character_played): self
+    public function setCharacterPlayed(?int $character_played): self
     {
         $this->character_played = $character_played;
 
