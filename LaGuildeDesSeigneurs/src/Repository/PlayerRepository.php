@@ -50,12 +50,12 @@ class PlayerRepository extends ServiceEntityRepository
 
     public function findOneByIdentifier($identifier)
     {
-        return $this->createQueryBuilder('p')   
-            ->select('p', 'c')                           //p : select la table dans laquelle on est; 
+        return $this->createQueryBuilder('p')
+            ->select('p', 'c')                           //p : select la table dans laquelle on est;
             ->leftJoin('p.characters', 'c')             //joint le champ character de l'entity player et on le lie à la table character
-            ->where('p.identifier = :identifier')       
+            ->where('p.identifier = :identifier')
             ->setParameter('identifier', $identifier)   //le parameter identifier prend la valeur $identifier
-            ->getQuery()                                //make SQL 
+            ->getQuery()                                //make SQL
             ->getOneOrNullResult()                      //un seul résultat ou alors renvoie null
         ;
     }

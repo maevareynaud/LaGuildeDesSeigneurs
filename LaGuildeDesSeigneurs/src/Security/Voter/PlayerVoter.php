@@ -27,8 +27,7 @@ class PlayerVoter extends Voter
 
     protected function supports($attribute, $subject)
     {
-
-        if(null !== $subject){
+        if (null !== $subject) {
             return $subject instanceof Player && in_array($attribute, self::ATTRIBUTES);
         }
         return in_array($attribute, self::ATTRIBUTES);
@@ -64,15 +63,17 @@ class PlayerVoter extends Voter
      * Check if is allowed to display
      */
 
-    public function canDisplay(){
+    public function canDisplay()
+    {
         return true;
     }
 
-     /**
-     * Check if is allowed to create
-     */
+    /**
+    * Check if is allowed to create
+    */
 
-    public function canCreate(){
+    public function canCreate()
+    {
         return true;
     }
 
@@ -80,7 +81,8 @@ class PlayerVoter extends Voter
      * Check if is allowed to modify
      */
 
-    public function canModify(){
+    public function canModify()
+    {
         return true;
     }
 
@@ -88,7 +90,8 @@ class PlayerVoter extends Voter
      * Check if is allowed to delete
      */
 
-    public function canDelete(){
+    public function canDelete()
+    {
         return true;
     }
 }

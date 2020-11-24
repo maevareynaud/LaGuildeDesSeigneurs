@@ -8,7 +8,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-
 /**
  * @ORM\Entity(repositoryClass=PlayerRepository::class)
  * @ORM\Table(name="players")
@@ -151,25 +150,25 @@ class Player
         return $this;
     }
 
-     /**
-     *   Converts the entity in an array
-     */
+    /**
+    *   Converts the entity in an array
+    */
 
-    public function toArray(bool $expand = true){
-        
+    public function toArray(bool $expand = true)
+    {
         $player =  get_object_vars($this);
-        if($expand && null !== $this->getCharacters()){
+        if ($expand && null !== $this->getCharacters()) {
             $characters = array();
-            foreach($this->getCharacters() as $character){
+            foreach ($this->getCharacters() as $character) {
                 $characters[] = $character->toArray(false);
             }
             $player['characters'] = $characters;
         }
         //specific data
-        if(null !== $player['Creation']){
+        if (null !== $player['Creation']) {
             $player['Creation'] = $player['Creation']->format('Y-m-d H:i:s');
         }
-        if(null !== $player['Modification']){
+        if (null !== $player['Modification']) {
             $player['Modification'] = $player['Modification']->format('Y-m-d H:i:s');
         }
         return $player;

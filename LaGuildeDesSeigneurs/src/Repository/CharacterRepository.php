@@ -50,12 +50,12 @@ class CharacterRepository extends ServiceEntityRepository
 
     public function findOneByIdentifier($identifier)
     {
-        return $this->createQueryBuilder('c')   
-            ->select('c', 'p')                           //p : select la table dans laquelle on est; 
+        return $this->createQueryBuilder('c')
+            ->select('c', 'p')                           //p : select la table dans laquelle on est;
             ->leftJoin('c.player', 'p')             //joint le champ character de l'entity player et on le lie à la table character
-            ->where('c.identifier = :identifier')       
+            ->where('c.identifier = :identifier')
             ->setParameter('identifier', $identifier)   //le parameter identifier prend la valeur $identifier
-            ->getQuery()                                //make SQL 
+            ->getQuery()                                //make SQL
             ->getOneOrNullResult()                      //un seul résultat ou alors renvoie null
         ;
     }

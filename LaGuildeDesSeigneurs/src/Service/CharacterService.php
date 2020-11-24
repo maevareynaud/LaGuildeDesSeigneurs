@@ -12,11 +12,8 @@ use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use LogicException;
 
-
-
-class CharacterService implements CharacterServiceInterface 
+class CharacterService implements CharacterServiceInterface
 {
-
     private $em;
     private $characterRepository;
     private $formFactory;
@@ -55,10 +52,9 @@ class CharacterService implements CharacterServiceInterface
     public function isEntityFilled(Character $character)
     {
         $errors = $this->validator->validate($character);
-        if(count($errors) > 0){
+        if (count($errors) > 0) {
             throw new UnprocessableEntityHttpException((string) $errors . 'Missing data for Entity -> ' . json_encode($character->toArray()));
         }
-        
     }
    
     /**
@@ -89,7 +85,7 @@ class CharacterService implements CharacterServiceInterface
     {
         $charactersFinal = array();
         $characters = $this->characterRepository->findAll();
-        foreach($characters as $character){
+        foreach ($characters as $character) {
             $charactersFinal[]=$character->toArray();
         }
 
@@ -121,6 +117,4 @@ class CharacterService implements CharacterServiceInterface
 
         return true;
     }
-
-    
 }

@@ -11,7 +11,6 @@ use App\Service\PlayerServiceInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 
-
 class PlayerController extends AbstractController
 {
     private $playerService;
@@ -23,18 +22,19 @@ class PlayerController extends AbstractController
 
 
     /**
-     * @Route("/player", 
-     *      name="player_redirect_index", 
+     * @Route("/player",
+     *      name="player_redirect_index",
      *      methods={"GET","HEAD"})
      */
 
-    public function redirectIndex(){
+    public function redirectIndex()
+    {
         return $this->redirectToRoute('player_index');
     }
 
     /**
-     * @Route("/player/index", 
-     *      name="player_index", 
+     * @Route("/player/index",
+     *      name="player_index",
      *      methods={"GET","HEAD"})
      */
 
@@ -49,7 +49,7 @@ class PlayerController extends AbstractController
     }
 
     /**
-     * @Route("/player/display/{identifier}", 
+     * @Route("/player/display/{identifier}",
      *      name="player_display",
      *      requirements={"identifier": "^([a-z0-9]{40})$"},
      *      methods={"GET","HEAD"}
@@ -57,21 +57,21 @@ class PlayerController extends AbstractController
      * @Entity("player", expr="repository.findOneByIdentifier(identifier)")
      */
 
-    public function display(Player $player) {
-        
+    public function display(Player $player)
+    {
         $this->denyAccessUnlessGranted('playerDisplay', $player);
 
         return new JsonResponse($player->toArray());
     }
 
     /**
-     * @Route("/player/create", 
+     * @Route("/player/create",
      *      name="player_create",
      *      methods={"POST", "HEAD"})
      */
 
-    public function create(Request $request) {
-
+    public function create(Request $request)
+    {
         $this->denyAccessUnlessGranted('playerCreate', null);
 
         $player = $this->playerService->create($request->getContent());
@@ -79,14 +79,14 @@ class PlayerController extends AbstractController
     }
 
     /**
-     * @Route("/player/modify/{identifier}", 
+     * @Route("/player/modify/{identifier}",
      *      name="player_modify",
      *      requirements={"identifier": "^([a-z0-9]{40})$"},
      *      methods={"PUT", "HEAD"})
      */
 
-    public function modify(Request $request, Player $player) {
-
+    public function modify(Request $request, Player $player)
+    {
         $this->denyAccessUnlessGranted('playerModify', null);
 
         $player = $this->playerService->modify($player, $request->getContent());
@@ -94,18 +94,17 @@ class PlayerController extends AbstractController
     }
 
     /**
-     * @Route("/player/delete/{identifier}", 
+     * @Route("/player/delete/{identifier}",
      *      name="player_delete",
      *      requirements={"identifier": "^([a-z0-9]{40})$"},
      *      methods={"DELETE", "HEAD"})
      */
 
-    public function delete(Player $player) {
-
+    public function delete(Player $player)
+    {
         $this->denyAccessUnlessGranted('playerDelete', null);
 
         $response = $this->playerService->delete($player);
         return new JsonResponse(array('delete' => $response));
     }
-
 }

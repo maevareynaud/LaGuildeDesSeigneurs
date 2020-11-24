@@ -217,17 +217,18 @@ class Character
      *   Converts the entity in an array
      */
 
-    public function toArray(bool $expand = true){
+    public function toArray(bool $expand = true)
+    {
         $character =  get_object_vars($this);
-        if($expand && null !== $this->getPlayer()){
+        if ($expand && null !== $this->getPlayer()) {
             $character['player'] = $this->getPlayer()->toArray(false);
         }
 
         //Specific data
-        if(null !== $character['creation']){
+        if (null !== $character['creation']) {
             $character['creation'] = $character['creation']->format('Y-m-d H:i:s');
         }
-        if(null !== $character['modification']){
+        if (null !== $character['modification']) {
             $character['modification'] = $character['modification']->format('Y-m-d H:i:s');
         }
         return $character;
@@ -292,6 +293,4 @@ class Character
 
         return $this;
     }
-
-    
 }

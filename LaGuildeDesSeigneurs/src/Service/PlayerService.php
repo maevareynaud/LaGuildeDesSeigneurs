@@ -14,11 +14,8 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\VarDumper\Cloner\Data;
 use LogicException;
 
-
-
-class PlayerService implements PlayerServiceInterface 
+class PlayerService implements PlayerServiceInterface
 {
-
     private $em;
     private $playerRepository;
     private $formFactory;
@@ -32,12 +29,11 @@ class PlayerService implements PlayerServiceInterface
         $this->em = $em;
         $this->formFactory = $formFactory;
         $this->validator = $validator;
-
     }
 
-    public function create(String $data) 
+    public function create(String $data)
     {
-        $player = new Player(); 
+        $player = new Player();
         $player
             ->setCreation(new \DateTime())
             ->setModification(new \DateTime())
@@ -61,7 +57,7 @@ class PlayerService implements PlayerServiceInterface
     public function isEntityFilled(Player $player)
     {
         $errors = $this->validator->validate($player);
-        if(count($errors) > 0){
+        if (count($errors) > 0) {
             throw new UnprocessableEntityHttpException((string) $errors . 'Missing data for Entity -> ' . json_encode($player->toArray()));
         }
     }
@@ -94,7 +90,7 @@ class PlayerService implements PlayerServiceInterface
     {
         $playersFinal = array();
         $players = $this->playerRepository->findAll();
-        foreach($players as $player){
+        foreach ($players as $player) {
             $playersFinal[]=$player->toArray();
         }
 
@@ -126,6 +122,4 @@ class PlayerService implements PlayerServiceInterface
 
         return true;
     }
-
-    
 }

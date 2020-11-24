@@ -23,9 +23,9 @@ class CharacterType extends AbstractType
             ->add('life', IntegerType::class)
             ->add('image', TextType::class)
             ->add('kind', TextType::class)
-            ->add('creation',  DateTimeType::class)
-            ->add('identifier',  TextType::class)
-            ->add('modification',  DateTimeType::class)
+            ->add('creation', DateTimeType::class)
+            ->add('identifier', TextType::class)
+            ->add('modification', DateTimeType::class)
         ;
     }
 
