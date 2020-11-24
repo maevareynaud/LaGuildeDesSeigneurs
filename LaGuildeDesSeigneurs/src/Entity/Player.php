@@ -22,7 +22,7 @@ class Player
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=16)
+     * @ORM\Column(type="string", length=16, name="gls_firstname")
      * @Assert\NotBlank
      * @Assert\Length(
      *      min = 3,
@@ -32,7 +32,7 @@ class Player
     private $firstname;
 
     /**
-     * @ORM\Column(type="string", length=64)
+     * @ORM\Column(type="string", length=64, name="gls_lastname")
      * @Assert\NotBlank
      * @Assert\Length(
      *      min = 3,
@@ -42,14 +42,14 @@ class Player
     private $lastname;
 
     /**
-     * @ORM\Column(type="text", length=255, nullable=true)
+     * @ORM\Column(type="text", length=255, nullable=true, name="gls_email")
      * @Assert\NotBlank
      * @Assert\Email
      */
     private $email;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", name="gls_mirian")
      * @Assert\Type(
      *     type="integer",
      *     message="The value {{ value }} is not a valid {{ type }}."
@@ -58,17 +58,17 @@ class Player
     private $mirian;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", name="gls_creation")
      */
     private $Creation;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", name="gls_modification")
      */
     private $Modification;
 
     /**
-     * @ORM\Column(type="string", length=40)
+     * @ORM\Column(type="string", length=40, name="gls_identifier")
      * @Assert\Length(
      *      min = 40,
      *      max = 40,
@@ -77,7 +77,7 @@ class Player
     private $identifier;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer", nullable=true, name="gls_character_played")
      * @Assert\Type(
      *     type="integer",
      *     message="The value {{ value }} is not a valid {{ type }}."
