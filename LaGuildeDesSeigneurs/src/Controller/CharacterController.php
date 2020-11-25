@@ -128,6 +128,48 @@ class CharacterController extends AbstractController
     }
 
     /**
+     * @Route("/character/display/intelligence/{intelligence}",
+     *      name="character_display_intelligence",
+     *      requirements={"intelligence": "^([0-9]{1,3})$"},
+     *      methods={"GET","HEAD"}
+     * )
+     * 
+     * @OA\Parameter(
+     *      name="intelligence",
+     *      in="path",
+     *      description="intelligence for the character",
+     *      required=true,
+     * )
+     * 
+     * @OA\Response(
+     *      response=200,
+     *      description="Success",
+     *      @Model(type=Character::class)
+     * )
+     * 
+     * @OA\Response(
+     *      response=403,
+     *      description="Access denied",
+     * )
+     * 
+     * @OA\Response(
+     *      response=404,
+     *      description="Not Found",
+     * )
+     * 
+     * @OA\Tag(
+     *      name="Character"
+     * )
+     */
+
+    public function displayIntelligence($intelligence)
+    {
+        $this->denyAccessUnlessGranted('characterDisplay', null);
+
+        return new JsonResponse($this->characterService->getByIntelligence($intelligence));
+    }
+
+    /**
      * 
      * @Route("/character/create",
      *      name="character_create",

@@ -19,6 +19,11 @@ interface CharacterServiceInterface
     public function getAll();
 
     /**
+     * Create all the characters by intelligence level
+     */
+    public function getByIntelligence(int $intelligence);
+
+    /**
      * Modify a character
      */
 

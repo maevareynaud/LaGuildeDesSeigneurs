@@ -42,10 +42,8 @@ class CharacterHtmlController extends AbstractController
         $this->denyAccessUnlessGranted('characterCreate', null);
 
         $character = new Character();
-        dump($character);
         $form = $this->createForm(CharacterHtmlType::class, $character);
         $form->handleRequest($request);
-        dump($character);
 
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -71,6 +69,23 @@ class CharacterHtmlController extends AbstractController
             'character' => $character,
         ]);
     }
+
+    /**
+     * @Route("/intelligence/{intelligence}", 
+     * name="character_show_intelligence",
+     * requirements={"intelligence": "^([0-9]{1,3})$"}, 
+     * methods={"GET"})
+     */
+    public function showByIntelligence(CharacterRepository $characterRepository, $intelligence): Response
+    {
+        return $this->render('character/index.html.twig', [
+            'characters' => $characterRepository->findByIntelligence($intelligence),
+        ]);
+
+       
+    }
+
+    
 
     /**
      * @Route("/{id}/edit", name="character_edit", methods={"GET","POST"})
@@ -107,6 +122,8 @@ class CharacterHtmlController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('character_index');
+        return $this->redirectToRoute('character_index_html');
     }
+
+    
 }

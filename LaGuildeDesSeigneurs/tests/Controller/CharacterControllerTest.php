@@ -95,6 +95,24 @@ class CharacterControllerTest extends WebTestCase
     }
 
     /*
+    * Tests display by intelligence
+    */
+
+    public function testDisplayBadIntelligence(){
+        $this->client->request('GET', '/character/display/intelligence/4234');
+        $this->assertError404($this->client->getResponse()->getStatusCode());
+    }
+
+    /*
+    * Tests display by intelligence
+    */
+
+    public function testDisplayByIntelligence(){
+        $this->client->request('GET', '/character/display/intelligence/42');
+        $this->assertJsonResponse($this->client->getResponse());
+    }
+
+    /*
     * Tests modify 
     */
 
@@ -161,9 +179,8 @@ class CharacterControllerTest extends WebTestCase
      * Assert identifier
      */
 
-   public function assertIdentifier(){
+    public function assertIdentifier(){
        $this->assertArrayHasKey('identifier', $this->content);
-   }
-
+    }
 
 }

@@ -59,4 +59,18 @@ class CharacterRepository extends ServiceEntityRepository
             ->getOneOrNullResult()                      //un seul résultat ou alors renvoie null
         ;
     }
+
+    public function findByIntelligence($intelligence)
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.intelligence >= :val')
+            ->setParameter('val', $intelligence)
+            ->orderBy('c.id', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+
 }
