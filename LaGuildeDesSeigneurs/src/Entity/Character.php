@@ -79,7 +79,6 @@ class Character
 
     /**
      * @ORM\Column(type="string", length=128, nullable=true, name="gls_image")
-     * @Assert\NotBlank
      * @Assert\Length(
      *      min = 10,
      *      max = 128,
@@ -104,7 +103,6 @@ class Character
 
     /**
      * @ORM\Column(type="string", length=40, name="gls_identifier")
-     * @Assert\NotBlank
      * @Assert\Length(
      *      min = 3,
      *      max = 40,
